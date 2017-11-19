@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/gesiel/marsroverkata.svg?branch=master)](https://travis-ci.org/gesiel/marsroverkata)
+[![Coverage Status](https://coveralls.io/repos/github/gesiel/marsroverkata/badge.svg?branch=master)](https://coveralls.io/github/gesiel/marsroverkata)
+[![codebeat badge](https://codebeat.co/badges/145ea708-10c0-4fb7-b009-73c7782035a9)](https://codebeat.co/projects/github-com-gesiel-marsroverkata-master)
+
 # Mars Rover REST Kata
 
 ## Kata
