@@ -12,8 +12,7 @@ public class Rover {
     private final List<Character> ROTATION_COMMANDS = asList('R', 'L');
 
     private Direction direction = NORTH;
-    private int y = 0;
-    private int x = 0;
+    private Position position = new Position(0, 0);
 
     public void move(String commands) {
         commands.chars().forEach(value -> {
@@ -25,8 +24,8 @@ public class Rover {
     }
 
     public void position(RoverPositionOutputBoundary outputBoundary) {
-        outputBoundary.x(x);;
-        outputBoundary.y(y);
+        outputBoundary.x(position.x());;
+        outputBoundary.y(position.y());
         outputBoundary.direction(direction.symbol());
     }
 
@@ -40,10 +39,10 @@ public class Rover {
     }
 
     private void doMovement() {
-        if (NORTH == direction) y += 1;
-        else if (SOUTH == direction) y -= 1;
-        else if (EAST == direction) x += 1;
-        else x -= 1;
+        if (NORTH == direction) position = new Position(position.x(), position.y() + 1);
+        else if (SOUTH == direction) position = new Position(position.x(), position.y() - 1);
+        else if (EAST == direction) position = new Position(position.x() + 1, position.y());
+        else position = new Position(position.x() - 1, position.y());
     }
 
     private boolean isValidCommand(char command) {
