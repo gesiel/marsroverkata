@@ -6,6 +6,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class RoverFactory {
     public Rover create() {
-        return null;
+        return new Rover();
     }
 }
