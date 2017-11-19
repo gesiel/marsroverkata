@@ -1,5 +1,6 @@
 package gesiel.marsrover.presentation.controllers;
 
+import gesiel.marsrover.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -21,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RoverRestControllerTest {
+public class RoverRestControllerIT {
 
     private static final String PATH_PATTERN = "/rest/mars/%s";
 
