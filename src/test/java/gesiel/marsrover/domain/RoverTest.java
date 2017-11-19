@@ -42,6 +42,21 @@ public class RoverTest {
         assertPosition(expectedX, expectedY, expectedDirection);
     }
 
+    @Test
+    @Parameters({
+        "L, 0, 0, W",
+        "LL, 0, 0, S",
+        "LLL, 0, 0, E",
+        "LLLL, 0, 0, N",
+        "LLLLLLLL, 0, 0, N",
+        "LLLLLLLLL, 0, 0, W",
+    })
+    public void shouldRotateToLeft(String command, int expectedX, int expectedY, String expectedDirection) {
+        rover.move(command);
+        rover.position(outputBoundary);
+        assertPosition(expectedX, expectedY, expectedDirection);
+    }
+
     private void assertPosition(int expectedX, int expectedY, String expectedDirection) {
         assertThat(outputBoundary.x, equalTo(expectedX));
         assertThat(outputBoundary.y, equalTo(expectedY));
