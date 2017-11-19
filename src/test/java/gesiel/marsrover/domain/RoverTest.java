@@ -57,6 +57,33 @@ public class RoverTest {
         assertPosition(expectedX, expectedY, expectedDirection);
     }
 
+    @Test
+    @Parameters({
+        "M, 0, 1, N",
+        "MML, 0, 2, W",
+        "MRRM, 0, 0, S",
+        "RM, 1, 0, E",
+        "RMMLLM, 1, 0, W",
+        "MMMMRMMMMR, 4, 4, S",
+        "MMMMRMMMMRMM, 4, 2, S",
+        "MMMMRMMMMRMMRMM, 2, 2, W"
+    })
+    public void shouldMove(String command, int expectedX, int expectedY, String expectedDirection) {
+        rover.move(command);
+        rover.position(outputBoundary);
+        assertPosition(expectedX, expectedY, expectedDirection);
+    }
+
+    @Test(expected = InvalidCommandException.class)
+    @Parameters({
+            "A",
+            "MMB",
+            "RMRMC"
+    })
+    public void shouldInformInvalidCommand(String command) {
+        rover.move(command);
+    }
+
     private void assertPosition(int expectedX, int expectedY, String expectedDirection) {
         assertThat(outputBoundary.x, equalTo(expectedX));
         assertThat(outputBoundary.y, equalTo(expectedY));
