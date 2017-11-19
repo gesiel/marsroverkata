@@ -39,10 +39,20 @@ public class Rover {
     }
 
     private void doMovement() {
-        if (NORTH == direction) position = new Position(position.x(), position.y() + 1);
-        else if (SOUTH == direction) position = new Position(position.x(), position.y() - 1);
-        else if (EAST == direction) position = new Position(position.x() + 1, position.y());
-        else position = new Position(position.x() - 1, position.y());
+        if (NORTH == direction) {
+            if (position.y() == 4)  throw new InvalidPositionException();
+            position = new Position(position.x(), position.y() + 1);
+        } else if (EAST == direction) {
+            if (position.x() == 4)  throw new InvalidPositionException();
+            position = new Position(position.x() + 1, position.y());
+        } else if (SOUTH == direction) {
+            if (position.y() == 0)  throw new InvalidPositionException();
+            position = new Position(position.x(), position.y() - 1);
+        } else if (position.x() == 0) {
+            throw new InvalidPositionException();
+        } else {
+            position = new Position(position.x() - 1, position.y());
+        }
     }
 
     private boolean isValidCommand(char command) {

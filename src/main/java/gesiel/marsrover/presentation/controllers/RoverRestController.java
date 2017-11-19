@@ -1,6 +1,7 @@
 package gesiel.marsrover.presentation.controllers;
 
 import gesiel.marsrover.domain.InvalidCommandException;
+import gesiel.marsrover.domain.InvalidPositionException;
 import gesiel.marsrover.domain.Rover;
 import gesiel.marsrover.presentation.RoverFactory;
 import gesiel.marsrover.presentation.presenters.RoverPositionPresenter;
@@ -27,8 +28,8 @@ public class RoverRestController {
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(InvalidCommandException.class)
-    public String invalidRoverCommand(Exception exception) {
+    @ExceptionHandler({InvalidCommandException.class, InvalidPositionException.class})
+    public String invalidRoverCommandOrPosition(Exception exception) {
         return exception.getMessage();
     }
 }

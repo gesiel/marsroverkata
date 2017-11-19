@@ -76,11 +76,22 @@ public class RoverTest {
 
     @Test(expected = InvalidCommandException.class)
     @Parameters({
-            "A",
-            "MMB",
-            "RMRMC"
+        "A",
+        "MMB",
+        "RMRC"
     })
     public void shouldInformInvalidCommand(String command) {
+        rover.move(command);
+    }
+
+    @Test(expected = InvalidPositionException.class)
+    @Parameters({
+        "LM",
+        "LLM",
+        "MMMMM",
+        "RMMMMM",
+    })
+    public void shouldInformInvalidPosition(String command) {
         rover.move(command);
     }
 
