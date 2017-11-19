@@ -17,7 +17,7 @@ public class RoverTest {
 
     @Before
     public void setUp() throws Exception {
-        rover = new Rover();
+        rover = Rover.create();
         outputBoundary = new RoverPositionOutputBoundaryMock();
     }
 
@@ -92,6 +92,16 @@ public class RoverTest {
         "RMMMMM",
     })
     public void shouldInformInvalidPosition(String command) {
+        rover.move(command);
+    }
+
+    @Test(expected = InvalidPositionException.class)
+    @Parameters({
+        "MMM",
+        "RMMMMM",
+    })
+    public void shouldInformInvalidPositionWithDynamicMatrix(String command) {
+        rover = Rover.create(3, 5);
         rover.move(command);
     }
 

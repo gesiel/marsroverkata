@@ -1,6 +1,5 @@
 package gesiel.marsrover.domain;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static gesiel.marsrover.domain.Direction.*;
@@ -8,18 +7,34 @@ import static java.util.Arrays.asList;
 
 public class Rover {
 
-    private final List<Character> VALID_COMMANDS = asList('R', 'L', 'M');
-    private final List<Character> ROTATION_COMMANDS = asList('R', 'L');
+    private static final int DEFAULT_MATRIX_LENGTH = 5;
+    private static final List<Character> VALID_COMMANDS = asList('R', 'L', 'M');
+    private static final List<Character> ROTATION_COMMANDS = asList('R', 'L');
 
-    private Direction direction = NORTH;
-    private Position position = new Position(0, 0);
+    private Direction direction;
+    private Matrix matrix;
+    private Position position;
+
+    public static Rover create() {
+        return new Rover(DEFAULT_MATRIX_LENGTH, DEFAULT_MATRIX_LENGTH);
+    }
+
+    public static Rover create(int width, int length) {
+        return new Rover(width, length);
+    }
+
+    private Rover(int width, int length) {
+        direction = NORTH;
+        matrix = new Matrix(width, length);
+        position = new Position(0, 0);
+    }
 
     public void move(String commands) {
         commands.chars().forEach(value -> {
             char command = (char) value;
             validateCommand(command);
             if (isRotationCommand(command)) doRotation(command);
-            else  doMovement();
+            else doMovement();
         });
     }
 
@@ -39,20 +54,7 @@ public class Rover {
     }
 
     private void doMovement() {
-        if (NORTH == direction) {
-            if (position.y() == 4)  throw new InvalidPositionException();
-            position = new Position(position.x(), position.y() + 1);
-        } else if (EAST == direction) {
-            if (position.x() == 4)  throw new InvalidPositionException();
-            position = new Position(position.x() + 1, position.y());
-        } else if (SOUTH == direction) {
-            if (position.y() == 0)  throw new InvalidPositionException();
-            position = new Position(position.x(), position.y() - 1);
-        } else if (position.x() == 0) {
-            throw new InvalidPositionException();
-        } else {
-            position = new Position(position.x() - 1, position.y());
-        }
+        position = matrix.nextPositionTo(position, direction);
     }
 
     private boolean isValidCommand(char command) {
