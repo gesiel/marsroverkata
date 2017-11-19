@@ -15,7 +15,7 @@ class Matrix {
     Position nextPositionTo(Position position, Direction direction) {
         Position nextPosition = nextPosition(position, direction);
 
-        if (nextPosition.x() < 0 || nextPosition.x() >= lenght || nextPosition.y() < 0 || nextPosition.y() >= width)
+        if (isInvalidPosition(nextPosition))
             throw new InvalidPositionException();
 
         return nextPosition;
@@ -32,5 +32,13 @@ class Matrix {
             return -1;
         }
         return 1;
+    }
+
+    private boolean isInvalidPosition(Position nextPosition) {
+        return isInvalidAxis(nextPosition.x(), lenght) || isInvalidAxis(nextPosition.y(), width);
+    }
+
+    private boolean isInvalidAxis(int value, int max) {
+        return value < 0 || value >= max;
     }
 }
