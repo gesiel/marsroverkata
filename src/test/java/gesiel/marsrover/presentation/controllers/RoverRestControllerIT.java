@@ -47,13 +47,14 @@ public class RoverRestControllerIT {
     public void shouldRespondBadRequestOnInvalidCommand() throws Exception {
         mvc.perform(post("AAA"))
             .andExpect(status().isBadRequest())
-            .andExpect(content().string(equalTo("Invalid rover command")));;
+            .andExpect(content().string(equalTo("Invalid rover command")));
     }
 
     @Test
     public void shouldRespondBadRequestOnInvalidPosition() throws Exception {
         mvc.perform(post("MMMMMMMMMMMMMMMMMMMMMMMM"))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isBadRequest())
+            .andExpect(content().string(equalTo("Invalid rover position")));
     }
 
     private MockHttpServletRequestBuilder post(String command) {
